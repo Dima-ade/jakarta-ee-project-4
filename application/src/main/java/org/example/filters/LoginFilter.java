@@ -50,7 +50,9 @@ public class LoginFilter implements Filter {
                     HttpSession session = ((HttpServletRequest) request).getSession(true);
                     System.out.println("LoginFilter.doFilter session.hascode="+session.hashCode());
 
-                    String token = UUID.randomUUID().toString();
+//                    String token = UUID.randomUUID().toString();
+                    long nowMillis = System.currentTimeMillis();
+                    String token = JWTToken.createJWT("111", "acoravu", "token", nowMillis);
                     UserTokenRole principal = new UserTokenRole(username, token, Set.of("USER"));
 
                     session.setAttribute("principal", principal);
