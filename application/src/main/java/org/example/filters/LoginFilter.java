@@ -10,6 +10,7 @@ import org.example.entities.UserTokenRole;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.Set;
+import java.util.UUID;
 
 @WebFilter("/api") // Filter applies to /api/hello/ endpoints
 public class LoginFilter implements Filter {
@@ -27,8 +28,10 @@ public class LoginFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
         String url = httpRequest.getRequestURI();
+        //httpRequest.getMethod()
 
-        if(url.equals("/application-1.0-SNAPSHOT/api/hello/login")) {
+        if (url.equals("/application-1.0-SNAPSHOT/api/hello/login")) {
+            //TODO Adela check if httpMethod=POST
             String authHeader = httpRequest.getHeader("Authorization");
 
             if (authHeader != null && authHeader.startsWith("Basic ")) {
@@ -40,29 +43,33 @@ public class LoginFilter implements Filter {
                 String password = values[1];
 
                 // Validate user (Example: Hardcoded check)
-                if ("user".equals(username) && "password".equals(password)) {
+                if (("user".equals(username) || "user2".equals(username)) && "password".equals(password)) {
 
                     HttpSession session = ((HttpServletRequest) request).getSession(true);
+                    System.out.println("LoginFilter.doFilter session.hascode="+session.hashCode());
 
-                    UserTokenRole principal = new UserTokenRole(username, authHeader, Set.of("USER"));
+                    String token = UUID.randomUUID().toString();
+                    UserTokenRole principal = new UserTokenRole(username, token, Set.of("USER"));
 
                     session.setAttribute("principal", principal);
-                    chain.doFilter(request, response);
+                    httpResponse.setHeader("Token", token);
+                    httpResponse.setStatus(HttpServletResponse.SC_NO_CONTENT);
+                    //chain.doFilter(request, response);
                     return;
                 } else {
                     // Authentication failed or not provided
                     httpResponse.setHeader("WWW-Authenticate", "Basic realm=\"Secure Area\"");
                     httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
                 }
-            }
             } else {
-                // User authorized, continue
-                chain.doFilter(request, response);
-                return;
+                // Authentication failed or not provided
+                httpResponse.setHeader("WWW-Authenticate", "Basic realm=\"Secure Area\"");
+                httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
             }
-        // Authentication failed or not provided
-        httpResponse.setHeader("WWW-Authenticate", "Basic realm=\"Secure Area\"");
-        httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+        } else {
+            // User authorized, continue
+            chain.doFilter(request, response);
+        }
     }
 
     @Override

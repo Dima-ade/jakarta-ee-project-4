@@ -33,9 +33,11 @@ public class ResourceRoleBasedFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
 
-        String authHeader = req.getHeader("Authorization");
+        String token = req.getHeader("Token");
 
         HttpSession session = req.getSession(false);
+        System.out.println("ResourceRoleBasedFilter.doFilter session.hascode="+session.hashCode());
+
         // luam principalul (care contine user, token, lista de roluri) din sesiune
         UserTokenRole userPassRole = null;
         if (session != null) {
@@ -43,7 +45,7 @@ public class ResourceRoleBasedFilter implements Filter {
         }
         String url = req.getRequestURI();
         
-        if (url.equals("/application-1.0-SNAPSHOT/api/hello/login") || userPassRole!= null && authHeader.equals(userPassRole.getToken()) && allowedRoles.hasPermission(userPassRole, url)) {
+        if (userPassRole!= null && token.equals(userPassRole.getToken()) && allowedRoles.hasPermission(userPassRole, url)) {
             chain.doFilter(request, response); // end point is logged and has permission
         } else {
             res.sendError(HttpServletResponse.SC_FORBIDDEN, "Access Denied");
