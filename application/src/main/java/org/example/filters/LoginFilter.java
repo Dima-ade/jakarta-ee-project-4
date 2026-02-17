@@ -43,7 +43,9 @@ public class LoginFilter implements Filter {
                 String password = values[1];
 
                 // Validate user (Example: Hardcoded check)
-                if (("user".equals(username) || "user2".equals(username)) && "password".equals(password)) {
+                boolean isValidUser = ("user".equals(username) || "user2".equals(username));
+                boolean isValidPassword = ("password".equals(password));
+                if (isValidUser && isValidPassword) {
 
                     HttpSession session = ((HttpServletRequest) request).getSession(true);
                     System.out.println("LoginFilter.doFilter session.hascode="+session.hashCode());
