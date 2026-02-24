@@ -6,15 +6,17 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.example.exception.ItemNotFoundException;
+import org.example.mapper.MissingItemExceptionMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 @Path("/exceptions")
 @Valid
 public class ExceptionsResource {
 
-    private static final Logger logger = Logger.getLogger(ExceptionsResource.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(ExceptionsResource.class);
 
     @GET
     @Path("/city")

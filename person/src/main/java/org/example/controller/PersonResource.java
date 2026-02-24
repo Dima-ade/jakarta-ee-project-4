@@ -8,15 +8,15 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.example.commons.IPersonResource;
-
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Path("/person")
 @Valid
 @RequestScoped
 public class PersonResource implements IPersonResource {
 
-    private static final Logger logger = Logger.getLogger(PersonResource.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(PersonResource.class);
 
     public PersonResource() {
         System.out.println("\n\t\t++++++++++++++++++++++++++++++++ PersonResource.PersonResource");
