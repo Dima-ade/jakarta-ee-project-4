@@ -1,0 +1,6 @@
+#Properties
+#Wed Feb 25 14:04:58 EET 2026
+maven.compiler.target=17
+maven.compiler.source=17
+project.build.sourceEncoding=UTF-8
+build-version=1.0-SNAPSHOT

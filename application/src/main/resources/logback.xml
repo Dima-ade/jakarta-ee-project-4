@@ -5,6 +5,7 @@
 
     <property scope="context" name="logversion" value="v1.234" />
     <property scope="context" resource='configuration.properties'/>
+    <property scope="context" resource='build-info.tmp'/>
 
     <appender name="CONSOLE"
               class="ch.qos.logback.core.ConsoleAppender">

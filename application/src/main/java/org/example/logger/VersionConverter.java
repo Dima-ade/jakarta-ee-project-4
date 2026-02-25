@@ -10,7 +10,8 @@ public class VersionConverter extends ClassicConverter {
     @Override
     public String convert(ILoggingEvent event) {
         //return "versionToAdd";
-        return event.getLoggerContextVO().getPropertyMap().get("application.version");
+        return event.getLoggerContextVO().getPropertyMap().get("build-version");
+//        return event.getLoggerContextVO().getPropertyMap().get("application.version");
 //        return event.getLoggerContextVO().getPropertyMap().get("logversion");
     }
 }
