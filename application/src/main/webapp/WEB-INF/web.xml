@@ -12,22 +12,22 @@
         <servlet-name>org.example.RestAplication</servlet-name>
     </servlet>
 
-    <filter>
-        <filter-name>BasicAuthFilter</filter-name>
-        <filter-class>org.example.filters.LoginFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>BasicAuthFilter</filter-name>
-        <url-pattern>/api/*</url-pattern>
-    </filter-mapping>
+<!--    <filter>-->
+<!--        <filter-name>BasicAuthFilter</filter-name>-->
+<!--        <filter-class>org.example.filters.LoginFilter</filter-class>-->
+<!--    </filter>-->
+<!--    <filter-mapping>-->
+<!--        <filter-name>BasicAuthFilter</filter-name>-->
+<!--        <url-pattern>/api/*</url-pattern>-->
+<!--    </filter-mapping>-->
 
-    <filter>
-        <filter-name>RoleBasedAuthFilter</filter-name>
-        <filter-class>org.example.filters.ResourceRoleBasedFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>RoleBasedAuthFilter</filter-name>
-        <url-pattern>/api/*</url-pattern>
-    </filter-mapping>
+<!--    <filter>-->
+<!--        <filter-name>RoleBasedAuthFilter</filter-name>-->
+<!--        <filter-class>org.example.filters.ResourceRoleBasedFilter</filter-class>-->
+<!--    </filter>-->
+<!--    <filter-mapping>-->
+<!--        <filter-name>RoleBasedAuthFilter</filter-name>-->
+<!--        <url-pattern>/api/*</url-pattern>-->
+<!--    </filter-mapping>-->
 
 </web-app>
